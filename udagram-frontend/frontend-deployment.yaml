@@ -2,22 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: reverseproxy
-  name: reverseproxy-svc
+    service: frontend
+  name: frontend-svc
 spec:
   selector:
     matchLabels:
-      service: reverseproxy
-  replicas: 1
+      service: frontend
+  replicas: 2
   template:
     metadata:
       labels:
-        service: reverseproxy
+        service: frontend
+        api: external
     spec:
       containers:
-      - image: shubhamsati97/udagram-reverse-proxy
-        name: reverseproxy
-        imagePullPolicy: Always          
+      - image: shubhamsati97/udagram-frontend
+        name: frontend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
@@ -25,6 +28,4 @@ spec:
           limits:
             memory: "1024Mi"
             cpu: "500m"       
-        ports:
-        - containerPort: 8080
       restartPolicy: Always
