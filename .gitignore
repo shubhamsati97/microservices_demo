@@ -2,3 +2,4 @@ udagram-api/.env
 udagram-api-users/.env
 set_env_cmd.sh
 set_env.sh
+udagram-api-feeds/.env
